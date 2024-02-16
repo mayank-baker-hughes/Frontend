@@ -1,15 +1,18 @@
 
 import { Component ,ViewChild ,AfterViewInit,Injectable, OnInit} from '@angular/core';
 import { Risk } from 'src/app/Risk';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
+// import {LiveAnnouncer} from '@angular/cdk/a11y';
 // import { MatSort,Sort} from '@angular/material/sort';
-import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 import { CdkDrag, CdkDragMove, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import {MatTableDataSource} from '@angular/material/table'
+import {MatPaginator} from '@angular/material/paginator';
+
 
 import { Input, } from '@angular/core';
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
+import { ApiServiceService } from 'src/app/service/api-service.service';
 // import {MatTableDataSource} from '@angular/material/table';
 
 
@@ -17,42 +20,78 @@ import {CdkDragDrop} from '@angular/cdk/drag-drop';
 
 
 
-const  risks_arr:Risk[] = [
+const  risksData:Risk[] = [
 
   {
-    Risk_id:1,
-    Risk_Category:'Reserviour damage',
+    RiskId:1,
+    RiskCategory:'Reserviour damage',
     Hazards:['abc'],
     Risks:['shutdown','leak'],
-    Mitigation_Status:false,
-    Pre_mitigation_score:2,
-    Post_mitigation_score:1,
+    MitigationStatus:false,
+    PreMitigationScore:2,
+    PostMitigationScore:1,
     Barriers:['water']
 
   },
 
 
   {
-    Risk_id:2,
-    Risk_Category:'Reserviour damage',
-    Hazards:['corrosion','cement failure'],
+    RiskId:2,
+    RiskCategory:'Reserviour damage',
+    Hazards:['abc','pqr'],
     Risks:['shutdown','leak'],
-    Mitigation_Status:false,
-    Pre_mitigation_score:2,
-    Post_mitigation_score:1,
-    Barriers:['water']
+    MitigationStatus:false,
+    PreMitigationScore:2,
+    PostMitigationScore:1,
+    Barriers:['water','fire']
 
   },
 
   {
-    Risk_id:3,
-    Risk_Category:'Reserviour damage',
-    Hazards:['corrosion','cement failure'],
+    RiskId:3,
+    RiskCategory:'Reserviour damage',
+    Hazards:['abc'],
     Risks:['shutdown','leak'],
-    Mitigation_Status:false,
-    Pre_mitigation_score:2,
-    Post_mitigation_score:1,
-    Barriers:['water']
+    MitigationStatus:false,
+    PreMitigationScore:2,
+    PostMitigationScore:1,
+    Barriers:['water', 'acid']
+
+  },
+
+  {
+    RiskId:4,
+    RiskCategory:'Reserviour damage',
+    Hazards:['abc'],
+    Risks:['shutdown','leak'],
+    MitigationStatus:false,
+    PreMitigationScore:2,
+    PostMitigationScore:1,
+    Barriers:['water', 'acid']
+
+  },
+
+  {
+    RiskId:5,
+    RiskCategory:'Reserviour damage',
+    Hazards:['abc'],
+    Risks:['shutdown','leak'],
+    MitigationStatus:false,
+    PreMitigationScore:2,
+    PostMitigationScore:1,
+    Barriers:['water', 'acid']
+
+  },
+
+  {
+    RiskId:6,
+    RiskCategory:'Reserviour damage',
+    Hazards:['abc'],
+    Risks:['shutdown','leak'],
+    MitigationStatus:false,
+    PreMitigationScore:2,
+    PostMitigationScore:1,
+    Barriers:['water', 'acid']
 
   },
 
@@ -70,48 +109,52 @@ const  risks_arr:Risk[] = [
 
 
 
-export class TableDisplayComponent implements OnInit   {
+export class TableDisplayComponent implements OnInit,AfterViewInit  {
 
   // dataSource = new MatTableDataSource(risks);
-  dataSource !:any;
-  columns: any[] = [ 
-     { name: 'Risk_id' ,title:'Id' } ,   
-     { name: 'Risk_Category' ,title :'Risk Category' }, 
-     { name: 'Hazards' ,title : 'Hazards' } ,
-       { name: 'Risks' ,title:'Risks' }, 
-        { name: 'Mitigation_Status' ,title:'Mitigation Status' }, 
-          { name: 'Pre_mitigation_score' ,title:'Pre Mitigation  Score' },  
-          { name: 'Post_mitigation_score' ,title:'Post Mitigation Score'} , 
-           { name: 'Barriers' ,title :'Barries' }
-    ];
-  previousIndex!:number
-  displayedColumns: string[] = ['Risk_id' , 'Risk_Category','Hazards','Risks','Mitigation_Status', 'Pre_mitigation_score','Post_mitigation_score','Barriers'];
-  displayedColumnsNotDrag:string[] = []
-  constructor(private _liveAnnouncer: LiveAnnouncer) {}
-  @ViewChild(MatSort) sort !: MatSort;
+  risksArr !:Risk[]
+dataSource  = new MatTableDataSource(risksData)
+
+  // constructor(private ApiService:ApiServiceService){
+
+  //   this.ApiService.getAllData().subscribe((res)=>{
+  //     this.risksArr = res;
+  //     console.log(res);
+  //     this.dataSource = new MatTableDataSource<Risk>(this.risksArr)
+
+  //   })
+  // }
+  
+
+
   
   
+
+  @ViewChild(MatSort) sort !:MatSort;
+  @ViewChild(MatPaginator)paginator!:MatPaginator;
+
   ngOnInit() {
-    this.dataSource  = new MatTableDataSource(risks_arr)
-    // this.setDisplayedColumns();
-    // this.dataSource.sort = this.sort;
-  }
-   
+    
+    console.log(this.dataSource);
+    // this.dataSource.sort= this.sort;
+    // this.dataSource.paginator= this.paginator;
+     
+   }
 
-  tableDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.displayedColumns, event.previousIndex, event.currentIndex);
+   ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+
   }
 
 
-  announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
-  }
+  
+    
+  
+  displayedColumns: string[] = ['RiskId' , 'RiskCategory','Hazards','Risks','MitigationStatus', 'PreMitigationScore','PostMitigationScore','Barriers'];
+  
+ 
+  
+
+ 
 }

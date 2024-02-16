@@ -19,6 +19,9 @@ import {MatTableDataSource} from '@angular/material/table'
 
 import {MatIconModule} from '@angular/material/icon'
 
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { HttpClientModule } from '@angular/common/http';
+
  
 @NgModule({
   declarations: [
@@ -40,12 +43,18 @@ import {MatIconModule} from '@angular/material/icon'
   
     DragDropModule,
     MatSortModule,
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule,
+
+
+    HttpClientModule
     
     
     
     
   ],
+
+  exports:[MatPaginatorModule,MatSortModule],
   providers: [],
   bootstrap: [AppComponent]
 })

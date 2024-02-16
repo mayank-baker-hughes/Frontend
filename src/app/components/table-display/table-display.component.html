@@ -1,33 +1,58 @@
-
-
-
-
-<mat-table cdkDropList 
-           cdkDropListOrientation="horizontal"
-           (cdkDropListDropped)="tableDrop($event)"
-           [dataSource]="dataSource" 
-          >
-
-  <ng-container *ngFor="let column of columns; let i = index;"
-                [matColumnDef]="column.name">
-
-    <mat-header-cell *matHeaderCellDef cdkDrag cdkDragLockAxis="x"  >
-    <mat-icon cdkDragHandle> drag_indicator</mat-icon>   {{ column.title }}
-    </mat-header-cell>
-
-    <mat-cell *matCellDef="let element">{{ element[column.name] }}</mat-cell>
-
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+matSort
+>
+  <!-- Position Column -->
+  <ng-container matColumnDef="RiskId">
+    <mat-header-cell   *matHeaderCellDef mat-sort-header> Risk Id </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.RiskId}} </mat-cell>
   </ng-container>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"
-                  class="tableHeaderRow"
-                  #tableHeaderRow></mat-header-row>
+  <!-- Name Column -->
+  <ng-container matColumnDef="RiskCategory">
+    <mat-header-cell *matHeaderCellDef> Risk Category </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.RiskCategory}} </mat-cell>
+  </ng-container>
 
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Hazards">
+    <mat-header-cell *matHeaderCellDef> Hazards </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.Hazards}} </mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="Risks">
+    <mat-header-cell *matHeaderCellDef> Risks </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.Risks}} </mat-cell>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="MitigationStatus">
+    <mat-header-cell *matHeaderCellDef> Mitigation Status </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.MitigationStatus}} </mat-cell>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="PreMitigationScore">
+    <mat-header-cell *matHeaderCellDef> Pre MitigationScore </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.PreMitigationScore}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="PostMitigationScore">
+    <mat-header-cell *matHeaderCellDef> Post MitigationScore </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.PostMitigationScore}} </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="Barriers">
+    <mat-header-cell *matHeaderCellDef> Barriers </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.Barriers}} </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
 </mat-table>
 
-
-
-
-
+<mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons ></mat-paginator>
