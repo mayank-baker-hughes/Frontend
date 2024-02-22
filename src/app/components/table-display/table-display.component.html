@@ -1,52 +1,52 @@
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8"
-matSort
+matSort  cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)"
 >
   <!-- Position Column -->
   <ng-container matColumnDef="RiskId">
-    <mat-header-cell   *matHeaderCellDef mat-sort-header> Risk Id </mat-header-cell>
+    <mat-header-cell   *matHeaderCellDef mat-sort-header cdkDrag> Risk Id </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.RiskId}} </mat-cell>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="RiskCategory">
-    <mat-header-cell *matHeaderCellDef> Risk Category </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef  cdkDrag> Risk Category </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.RiskCategory}} </mat-cell>
   </ng-container>
 
   <!-- Weight Column -->
   <ng-container matColumnDef="Hazards">
-    <mat-header-cell *matHeaderCellDef> Hazards </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef cdkDrag><mat-icon cdkDragHandle > drag_indicator</mat-icon>  Hazards </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.Hazards}} </mat-cell>
   </ng-container>
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="Risks">
-    <mat-header-cell *matHeaderCellDef> Risks </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef cdkDrag><mat-icon cdkDragHandle > drag_indicator</mat-icon>  Risks </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.Risks}} </mat-cell>
   </ng-container>
 
 
 
   <ng-container matColumnDef="MitigationStatus">
-    <mat-header-cell *matHeaderCellDef> Mitigation Status </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef cdkDrag><mat-icon cdkDragHandle > drag_indicator</mat-icon>  Mitigation Status </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.MitigationStatus}} </mat-cell>
   </ng-container>
 
 
 
   <ng-container matColumnDef="PreMitigationScore">
-    <mat-header-cell *matHeaderCellDef> Pre MitigationScore </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef cdkDrag><mat-icon cdkDragHandle > drag_indicator</mat-icon>  Pre MitigationScore </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.PreMitigationScore}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="PostMitigationScore">
-    <mat-header-cell *matHeaderCellDef> Post MitigationScore </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef cdkDrag><mat-icon cdkDragHandle > drag_indicator</mat-icon>  Post MitigationScore </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.PostMitigationScore}} </mat-cell>
   </ng-container>
 
 
   <ng-container matColumnDef="Barriers">
-    <mat-header-cell *matHeaderCellDef> Barriers </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef cdkDrag> <mat-icon cdkDragHandle > drag_indicator</mat-icon> Barriers </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.Barriers}} </mat-cell>
   </ng-container>
 
@@ -56,3 +56,5 @@ matSort
 </mat-table>
 
 <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons ></mat-paginator>
+
+
