@@ -4,7 +4,7 @@ import { Risk } from 'src/app/Risk';
 // import {LiveAnnouncer} from '@angular/cdk/a11y';
 // import { MatSort,Sort} from '@angular/material/sort';
 import {MatSort, Sort} from '@angular/material/sort';
-import { CdkDrag, CdkDragMove, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDrag,CdkDragMove, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import {MatTableDataSource} from '@angular/material/table'
 import {MatPaginator} from '@angular/material/paginator';
@@ -15,7 +15,7 @@ import {CdkDragDrop} from '@angular/cdk/drag-drop';
 import { ApiServiceService } from 'src/app/service/api-service.service';
 // import {MatTableDataSource} from '@angular/material/table';
 
-
+// import { CdkDrag } from '@angular/cdk/drag-drop';
 
 
 
@@ -101,6 +101,7 @@ const  risksData:Risk[] = [
   selector: 'app-table-display',
   templateUrl: './table-display.component.html',
   styleUrls: ['./table-display.component.css'],
+  
  
  
 
@@ -155,6 +156,11 @@ dataSource  = new MatTableDataSource(risksData)
   
  
   
-
+  drop(event:CdkDragDrop<string[]>){
+    console.log("item from",event.previousIndex);
+    console.log("item to" ,event.currentIndex);
+    
+    moveItemInArray(this.displayedColumns,event.previousIndex,event.currentIndex)
+  }
  
 }
